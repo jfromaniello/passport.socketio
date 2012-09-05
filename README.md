@@ -1,4 +1,4 @@
-Access [Passport.js](http://passportjs.org) user information from socket.io(http://socket.io) connection.
+Access [Passport.js](http://passportjs.org) user information from [socket.io](http://socket.io) connection.
 
 
 Installation
