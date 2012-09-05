@@ -1,0 +1,26 @@
+{
+  "name": "passport.socketio",
+  "version": "0.0.1",
+  "description": "access passport.js authenticated user information from socket.io",
+  "main": "lib/index.js",
+  "keywords": [
+    "socket",
+    "socket.io",
+    "passport"
+  ],
+  "author": {
+    "name": "José F. Romaniello",
+    "email": "jfromaniello@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jfromaniello/passport.socketio.git"
+  },
+  "scripts": {},
+  "license": "MIT",
+  "dependencies": {
+    "passport": "~0.1.12",
+    "connect": "~2.4.5",
+    "cookie": "0.0.4"
+  }
+}
