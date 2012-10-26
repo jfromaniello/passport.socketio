@@ -24,7 +24,13 @@ Usage
   sio.set("authorization", passportSocketIo.authorize({
     sessionKey:    'express.sid',      //the cookie where express (or connect) stores its session id.
     sessionStore:  mySessionStore,     //the session store that express uses
-    sessionSecret: "my session secret" //the session secret to parse the cookie
+    sessionSecret: "my session secret", //the session secret to parse the cookie
+    fail: function(data, accept) {     // *optional* callbacks on success or fail
+      accept(null, false);             // second param takes boolean on whether or not to allow handshake
+    },
+    success: function(data, accept) {
+      accept(null, true);
+    }
   }));
 
   sio.sockets.on("connection", function(socket){
