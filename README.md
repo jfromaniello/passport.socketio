@@ -50,6 +50,13 @@ Usage
 
 ```
 
+Develop
+=======
+
+  npm install
+  npm test
+
+
 License
 ========
 

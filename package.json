@@ -16,11 +16,23 @@
     "type": "git",
     "url": "https://github.com/jfromaniello/passport.socketio.git"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "mocha"
+  },
   "license": "MIT",
   "dependencies": {
     "passport": "~0.1.12",
     "connect": "~2.4.5",
-    "cookie": "0.0.4"
+    "cookie": "0.0.4",
+    "request": "~2.12.0"
+  },
+  "devDependencies": {
+    "should": "~1.2.1",
+    "mocha": "~1.7.0",
+    "express": "~3.0.3",
+    "socket.io": "~0.9.11",
+    "connect": "~2.4.6",
+    "passport-local": "~0.1.6",
+    "xmlhttprequest": "~1.5.0"
   }
 }
