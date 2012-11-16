@@ -40,7 +40,7 @@ describe('authorizer', function () {
     });
 
     it('should do the handshake and connect', function (done){
-      var socket = io.connect('http://localhost:9000');
+      var socket = io.connect('http://localhost:9000', {'force new connection':true});
       socket.on('connect', function(){
         done();
       }).on('error', done);
