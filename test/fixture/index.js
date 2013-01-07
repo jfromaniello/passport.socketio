@@ -1,7 +1,8 @@
 var express = require('express'),
     connect   = require('connect'),
     passport  = require('passport'),
-    http = require('http');
+    http = require('http'),
+    xtend = require('xtend');
 
 var socketIo = require('socket.io'),
     passportSocketIo = require('../../lib');
@@ -14,7 +15,13 @@ var server;
 
 require('./setupPassport');
 
-exports.start = function (callback) {
+exports.start = function (options, callback) {
+  
+  if(typeof options == 'function'){
+    callback = options;
+    options = {};
+  }
+
   var app = express();
   app.configure(function(){
     app.use(express.cookieParser(cookieSecret));
@@ -48,11 +55,11 @@ exports.start = function (callback) {
 
   var sio = socketIo.listen(server);
   sio.configure(function(){
-    this.set('authorization', passportSocketIo.authorize({
+    this.set('authorization', passportSocketIo.authorize(xtend({
       sessionKey:    sessionKey,
       sessionStore:  sessionStore,
       sessionSecret: cookieSecret
-    }));
+    }, options)));
 
     this.set('log level', 0);
 
