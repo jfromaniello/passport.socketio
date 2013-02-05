@@ -8,8 +8,13 @@ var socketIo = require('socket.io'),
     passportSocketIo = require('../../lib');
 
 var sessionStore    = new connect.session.MemoryStore(),
-    cookieSecret  = 'asdasdsdas1312312',
-    sessionKey    = 'test-session-key';
+    sessionSecret  = 'asdasdsdas1312312',
+    sessionKey    = 'test-session-key',
+    sessionOptions = {
+      store:  sessionStore,
+      key:    sessionKey,
+      secret: sessionSecret
+    };
 
 var server;
 
@@ -24,15 +29,12 @@ exports.start = function (options, callback) {
 
   var app = express();
   app.configure(function(){
-    app.use(express.cookieParser(cookieSecret));
+    app.use(express.cookieParser());
    
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     
-    app.use(express.session({
-      store: sessionStore,
-      key: sessionKey
-    }));
+    app.use(express.session(sessionOptions));
 
     app.use(passport.initialize());
     app.use(passport.session());
@@ -55,11 +57,7 @@ exports.start = function (options, callback) {
 
   var sio = socketIo.listen(server);
   sio.configure(function(){
-    this.set('authorization', passportSocketIo.authorize(xtend({
-      sessionKey:    sessionKey,
-      sessionStore:  sessionStore,
-      sessionSecret: cookieSecret
-    }, options)));
+    this.set('authorization', passportSocketIo.authorize(xtend(sessionOptions, options)));
 
     this.set('log level', 0);
 
