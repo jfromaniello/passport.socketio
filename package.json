@@ -22,17 +22,16 @@
   "license": "MIT",
   "dependencies": {
     "passport": "~0.1.16",
-    "connect": "~2.7.6",
-    "cookie": "0.0.6",
+    "connect": "2.7.5",
+    "cookie": "0.0.5",
     "request": "~2.19.0",
     "xtend": "~2.0.3"
   },
   "devDependencies": {
-    "should": "~1.2.1",
-    "mocha": "~1.7.0",
-    "express": "~3.0.3",
-    "socket.io": "~0.9.11",
-    "connect": "~2.4.6",
+    "should": "~1.2.2",
+    "mocha": "~1.9.0",
+    "express": "~3.1.2",
+    "socket.io": "~0.9.14",
     "passport-local": "~0.1.6",
     "xmlhttprequest": "~1.5.0",
     "socket.io-client": "git+https://github.com/jfromaniello/socket.io-client.git"
