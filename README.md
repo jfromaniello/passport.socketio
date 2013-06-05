@@ -26,11 +26,12 @@ Usage
   //same attribute than the session middleware http://www.senchalabs.org/connect/middleware-session.html
 
   sio.set("authorization", passportSocketIo.authorize({
-    key:    'express.sid',       //the cookie where express (or connect) stores its session id.
-    secret: 'my session secret', //the session secret to parse the cookie
-    store:   mySessionStore,     //the session store that express uses
-    fail: function(data, accept) {     // *optional* callbacks on success or fail
-      accept(null, false);             // second param takes boolean on whether or not to allow handshake
+    cookieParser: express.cookieParser, //or connect.cookieParser
+    key:          'express.sid',        //the cookie where express (or connect) stores its session id.
+    secret:       'my session secret',  //the session secret to parse the cookie
+    store:         mySessionStore,      //the session store that express uses
+    fail: function(data, accept) {      // *optional* callbacks on success or fail
+      accept(null, false);              // second param takes boolean on whether or not to allow handshake
     },
     success: function(data, accept) {
       accept(null, true);

@@ -24,8 +24,10 @@ exports.start = function (options, callback) {
   
   if(typeof options == 'function'){
     callback = options;
-    options = {};
-  }
+    options = {
+    };
+  } 
+  options.cookieParser = express.cookieParser;
 
   var app = express();
   app.configure(function(){
