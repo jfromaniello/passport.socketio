@@ -55,12 +55,13 @@ Usage
 
 ```
 
+__Note:__ in the client-side use `io.connect()` or `io.connect('http://the-same-domain.com')` because Socket.io can work with CORS but the browser will not send the cookies.
+
 Develop
 =======
 
-  npm install
-  npm test
-
+    npm install
+    npm test
 
 License
 ========
