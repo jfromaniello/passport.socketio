@@ -91,8 +91,16 @@ function onAuthorizeFail(data, message, error, accept){
     throw new Error(message);
   } else {
     console.log(message);
-    accept(null, false); // the same accept-method as above
+    // the same accept-method as above in the success-callback
+    accept(null, false);
   }
+}
+
+// or
+// This function accepts every client unless there's an error
+function onAuthorizeFail(data, message, error, accept){
+  console.log(message);
+  accept(null, !error);
 }
 ```
 You can use the `message` parameter for debugging/logging/etc uses.
