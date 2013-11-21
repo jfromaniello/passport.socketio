@@ -121,9 +121,27 @@ passportSocketIo.filterSocketsByUser(io, function(user){
 });
 ```
 
+## CORS-Workaround:
+If you happen to have to work with Cross-Origin-Requests (marked by socket.io as `handshake.xdomain`) then here's a workaround:
+
+### Clientside:
+You have to provide the session-cookie. If you haven't set a name yet, do it like this: `app.use(express.session({ key: 'your.sid-key' }));`
+```javascript
+// Note: ther's no readCookie-function built in.
+// Get your own in the internetz
+socket = io.connect('//' + window.location.host, {
+  query: 'session_id=' + readCookie('your.sid-key')
+});
+```
+
+### Serverside:
+Nope, there's nothing to do on the server side. Just be sure that the cookies names match.
+
+
 ## Notes:
 * Does **NOT** support cookie-based sessions. eg: `express.cookieSession`
-* If the connection fails, check if you are requesting from a client via CORS. Check `socket.handshake.xdomain === true` as there are no cookies sent.
+* If the connection fails, check if you are requesting from a client via CORS. Check `socket.handshake.xdomain === true` as there are no cookies sent. For a workaround look at the code above.
+
 
 ## Contribute
 You are always welcome to open an issue or provide a pull-request!  
