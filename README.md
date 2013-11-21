@@ -26,7 +26,7 @@ io.set('authorization', passportSocketIo.authorize({
   store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
   success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
   fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
-});
+}));
 
 function onAuthorizeSuccess(data, accept){
   console.log('successful connection to socket.io');
