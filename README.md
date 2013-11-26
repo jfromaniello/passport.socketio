@@ -20,7 +20,7 @@ var io               = require("socket.io")(server),
 
 // set authorization for socket.io
 io.set('authorization', passportSocketIo.authorize({
-  cookieParse: express.cookieParse,
+  cookieParser: express.cookieParser,
   key:         'express.sid',       // the name of the cookie where express/connect stores its session_id
   secret:      'session_secret',    // the session_secret to parse the cookie
   store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
