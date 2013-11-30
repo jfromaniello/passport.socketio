@@ -37,7 +37,7 @@ function onAuthorizeSuccess(data, accept){
 }
 
 function onAuthorizeFail(data, message, error, accept){
-  if(critical)
+  if(error)
     throw new Error(message);
   console.log('failed connection to socket.io:', message);
   
@@ -117,7 +117,7 @@ This function gives you the ability to filter all connected sockets via a user p
 passportSocketIo.filterSocketsByUser(io, function(user){
   return user.gender === 'female';
 }).forEach(function(socket){
-  socket.send('msg', 'hello, woman!');
+  socket.emit('messsage', 'hello, woman!');
 });
 ```
 
