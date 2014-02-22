@@ -32,7 +32,7 @@
     "socket.io": "~0.9.14",
     "passport-local": "~0.1.6",
     "xmlhttprequest": "~1.5.0",
-    "socket.io-client": "git+https://github.com/jfromaniello/socket.io-client.git",
+    "socket.io-client": "~0.9.16",
     "connect": "~2.7.11"
   }
 }
