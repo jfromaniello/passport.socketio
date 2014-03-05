@@ -21,7 +21,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "passport": "~0.2.0",
     "xtend": "~2.0.3"
   },
   "devDependencies": {
