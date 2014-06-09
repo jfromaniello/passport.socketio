@@ -116,8 +116,8 @@ function onAuthorizeFail(data, message, error, accept){
 You can use the `message` parameter for debugging/logging/etc uses.
 
 ## `socket.handshake.user`
-This property is always available from inside a `io.on('connection')` handler. If the user is authorized via passport, you can access all the properties from there.
-**Plus** you have the `socket.handshake.user.logged_in` property which tells you whether the user is currently authorized or not.
+This property, (`socket.request.user` with socket.io v1), is always available from inside a `io.on('connection')` handler. If the user is authorized via passport, you can access all the properties from there.
+**Plus** you have the `socket.handshake.user.logged_in` (`socket.request.user.logged_in` with socket.io v1) property which tells you whether the user is currently authorized or not.
 
 ## Additional methods
 
@@ -132,7 +132,7 @@ passportSocketIo.filterSocketsByUser(io, function(user){
 ```
 
 ## CORS-Workaround:
-If you happen to have to work with Cross-Origin-Requests (marked by socket.io as `handshake.xdomain`) then here's a workaround:
+If you happen to have to work with Cross-Origin-Requests (marked by socket.io v0.9 as `handshake.xdomain` and by socket.io v1.0 as `request.xdomain`) then here's a workaround:
 
 ### Clientside:
 You have to provide the session-cookie. If you haven't set a name yet, do it like this: `app.use(express.session({ key: 'your.sid-key' }));`
@@ -150,7 +150,7 @@ Nope, there's nothing to do on the server side. Just be sure that the cookies na
 
 ## Notes:
 * Does **NOT** support cookie-based sessions. eg: `express.cookieSession`
-* If the connection fails, check if you are requesting from a client via CORS. Check `socket.handshake.xdomain === true` as there are no cookies sent. For a workaround look at the code above.
+* If the connection fails, check if you are requesting from a client via CORS. Check `socket.handshake.xdomain === true` (`socket.request.xdomain === true` with socket.io v1) as there are no cookies sent. For a workaround look at the code above.
 
 
 ## Contribute
