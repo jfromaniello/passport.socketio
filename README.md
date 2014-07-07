@@ -95,18 +95,32 @@ Defaults to `require('passport')`. If you want, you can provide your own instanc
 ### `success` [function] **optional**:
 Callback which will be called everytime a *authorized* user successfuly connects to your socket.io instance. **Always** be sure to accept/reject the connection.
 For that, there are two parameters: `function(data[object], accept[function])`. `data` contains all the user-information from passport.
-The second parameter is for accepting/rejecting connections. Use it like this:
+The second parameter is for accepting/rejecting connections. Use it like this if you use socket.io under 1.0:
 ```javascript
 // accept connection
 accept(null, true);
 
 // reject connection (for whatever reason)
 accept(null, false);
+
+
 ```
+
+And like this if you use the newest version of socket.io@1.X
+```javascript
+// accept connection
+accept();
+
+// reject connection (for whatever reason)
+accept(new Error('optional reason'));
+
+
+```
+
 
 ### `fail` [function] **optional**:
 The name of this callback may be a little confusing. While it is called when a not-authorized-user connects, it is also called when there's a error.
-For debugging reasons you are provided with two additional parameters `function(data[object], message[string], error[bool], accept[function])`:
+For debugging reasons you are provided with two additional parameters `function(data[object], message[string], error[bool], accept[function])`: (socket.io @ < 1.X)
 ```javascript
 /* ... */
 function onAuthorizeFail(data, message, error, accept){
@@ -127,6 +141,25 @@ function onAuthorizeFail(data, message, error, accept){
   accept(null, !error);
 }
 ```
+
+Socket.io@1.X:
+```javascript
+function onAuthorizeFail(data, message, error, accept){
+  // error indicates whether the fail is due to an error or just a unauthorized client
+  if(error)  throw new Error(message);
+  // send the (not-fatal) error-message to the client and deny the connection
+  return accept(new Error(message));
+}
+
+// or
+// This function accepts every client unless there's an critical error
+function onAuthorizeFail(data, message, error, accept){
+  if(error)  throw new Error(message);
+  return accept();
+}
+```
+
+
 You can use the `message` parameter for debugging/logging/etc uses.
 
 ## `socket.handshake.user`
