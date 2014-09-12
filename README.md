@@ -162,9 +162,14 @@ function onAuthorizeFail(data, message, error, accept){
 
 You can use the `message` parameter for debugging/logging/etc uses.
 
-## `socket.handshake.user`
-This property, (`socket.request.user` with socket.io v1), is always available from inside a `io.on('connection')` handler. If the user is authorized via passport, you can access all the properties from there.
-**Plus** you have the `socket.handshake.user.logged_in` (`socket.request.user.logged_in` with socket.io v1) property which tells you whether the user is currently authorized or not.
+## `socket.handshake.user` (prior to v1)
+This property was removed in v1. See `socket.request.user`
+
+## `socket.request.user` (as of v1)
+This property is always available from inside a `io.on('connection')` handler. If the user is authorized via passport, you can access all the properties from there.
+**Plus** you have the `socket.request.user.logged_in` property which tells you whether the user is currently authorized or not.
+
+**Note:** This property was named socket.handshake.user prior to v1
 
 ## Additional methods
 
