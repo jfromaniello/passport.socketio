@@ -78,7 +78,7 @@ Also be sure to use the same sessionStore or at least a connection to *the same 
 `app.use(express.session({ store: awesomeSessionStore }));`
 For further info about this middleware see [the official documentation](http://www.senchalabs.org/connect/session.html#session).
 
-As an example, you can check the example below using a redis store.
+You can also check the simple example below using a redis store.
 
 ```javascript
 //in your app.js
@@ -91,7 +91,6 @@ app.use(session({
 }));
 
 //in your passport.socketio setup
-
 //With Socket.io >= 1.0 (you will have the same setup for Socket.io <1)
 io.use(passportSocketIo.authorize({
   cookieParser: cookieParser,
