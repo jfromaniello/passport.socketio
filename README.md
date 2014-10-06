@@ -44,9 +44,9 @@ function onAuthorizeSuccess(data, accept){
   // The accept-callback still allows us to decide whether to
   // accept the connection or not.
   accept(null, true);
-  
+
   // OR
-  
+
   // If you use socket.io@1.X the callback looks different
   accept();
 }
@@ -58,9 +58,9 @@ function onAuthorizeFail(data, message, error, accept){
 
   // We use this callback to log all of our failed connections.
   accept(null, false);
-  
+
   // OR
-  
+
   // If you use socket.io@1.X the callback looks different
   // If you don't want to accept the connection
   if(error)
@@ -77,6 +77,31 @@ function onAuthorizeFail(data, message, error, accept){
 Also be sure to use the same sessionStore or at least a connection to *the same collection/table/whatever*. And don't forget your `express.session()` middleware:
 `app.use(express.session({ store: awesomeSessionStore }));`
 For further info about this middleware see [the official documentation](http://www.senchalabs.org/connect/session.html#session).
+
+You can also check the simple example below using a redis store.
+
+```javascript
+//in your app.js
+var sessionStore = new redisStore();
+
+app.use(session({
+  key: 'express.sid',
+  store: sessionStore,
+  secret: 'keyboard cat'
+}));
+
+//in your passport.socketio setup
+//With Socket.io >= 1.0 (you will have the same setup for Socket.io <1)
+io.use(passportSocketIo.authorize({
+  cookieParser: cookieParser,
+  key:         'express.sid',       //make sure is the same as in your session settings in app.js
+  secret:      'keyboard cat',    //make sure is the same as in your session settings in app.js
+  store:       sessionStore,        //you need to use the same sessionStore you defined in the app.use(session({... in app.js
+  success:     onAuthorizeSuccess,  // *optional* callback on success
+  fail:        onAuthorizeFail,     // *optional* callback on fail/error
+}));
+
+```
 
 ### `cookieParser` [function] **required**:
 You have to provide your cookieParser from express: `express.cookieParser`
