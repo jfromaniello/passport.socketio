@@ -198,7 +198,7 @@ This property is always available from inside a `io.on('connection')` handler. I
 
 ## Additional methods
 
-### `passportSocketIo.filterSocketsbyUser`
+### `passportSocketIo.filterSocketsByUser`
 This function gives you the ability to filter all connected sockets via a user property. Needs two parameters `function(io, function(user))`. Example:
 ```javascript
 passportSocketIo.filterSocketsByUser(io, function(user){
