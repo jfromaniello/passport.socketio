@@ -1,4 +1,7 @@
+[![Build Status](https://travis-ci.org/jfromaniello/passport.socketio.svg)](https://travis-ci.org/jfromaniello/passport.socketio)
+
 # passport.socketio
+
 > Access [passport.js](http://passportjs.org) user information from a [socket.io](http://socket.io) connection.
 
 
