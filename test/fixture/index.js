@@ -1,8 +1,13 @@
-var express = require('express'),
-    connect   = require('connect'),
-    passport  = require('passport'),
-    http = require('http'),
-    xtend = require('xtend');
+var express = require('express');
+var connect   = require('connect');
+var passport  = require('passport');
+
+var http = require('http');
+var xtend = require('xtend');
+
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var socketIo = require('socket.io'),
     passportSocketIo = require('../../lib');
@@ -13,7 +18,9 @@ var sessionStore    = new connect.session.MemoryStore(),
     sessionOptions = {
       store:  sessionStore,
       key:    sessionKey,
-      secret: sessionSecret
+      secret: sessionSecret,
+      saveUninitialized: true,
+      resave: true
     };
 
 var server;
@@ -21,27 +28,23 @@ var server;
 require('./setupPassport');
 
 exports.start = function (options, callback) {
-  
+
   if(typeof options == 'function'){
     callback = options;
-    options = {
-    };
-  } 
-  options.cookieParser = express.cookieParser;
+    options = {};
+  }
 
   var app = express();
-  app.configure(function(){
-    app.use(express.cookieParser());
-   
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    
-    app.use(express.session(sessionOptions));
+
+  (function(){
+    app.use(cookieParser());
+    app.use(bodyParser.urlencoded({extended: true}));
+
+    app.use(session(sessionOptions));
 
     app.use(passport.initialize());
     app.use(passport.session());
-
-  });
+  }).call(app);
 
   app.post('/login', passport.authenticate('local', { successRedirect: '/',
                                                       failureRedirect: '/login',
@@ -59,7 +62,11 @@ exports.start = function (options, callback) {
 
   var sio = socketIo.listen(server);
   sio.configure(function(){
-    this.set('authorization', passportSocketIo.authorize(xtend(sessionOptions, options)));
+    var authorization = passportSocketIo.authorize(xtend(sessionOptions, options, {
+      cookieParser: cookieParser
+    }));
+
+    this.set('authorization', authorization);
 
     this.set('log level', 0);
 

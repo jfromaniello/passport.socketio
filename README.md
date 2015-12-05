@@ -1,4 +1,7 @@
+[![Build Status](https://travis-ci.org/jfromaniello/passport.socketio.svg)](https://travis-ci.org/jfromaniello/passport.socketio)
+
 # passport.socketio
+
 > Access [passport.js](http://passportjs.org) user information from a [socket.io](http://socket.io) connection.
 
 
@@ -30,12 +33,12 @@ io.set('authorization', passportSocketIo.authorize({
 
 //With Socket.io >= 1.0
 io.use(passportSocketIo.authorize({
-  cookieParser: express.cookieParser,
-  key:         'express.sid',       // the name of the cookie where express/connect stores its session_id
-  secret:      'session_secret',    // the session_secret to parse the cookie
-  store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
-  success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
-  fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
+  cookieParser: cookieParser,       // the same middleware you registrer in express
+  key:          'express.sid',       // the name of the cookie where express/connect stores its session_id
+  secret:       'session_secret',    // the session_secret to parse the cookie
+  store:        sessionStore,        // we NEED to use a sessionstore. no memorystore please
+  success:      onAuthorizeSuccess,  // *optional* callback on success - read more below
+  fail:         onAuthorizeFail,     // *optional* callback on fail/error - read more below
 }));
 
 function onAuthorizeSuccess(data, accept){
@@ -93,18 +96,20 @@ app.use(session({
 //in your passport.socketio setup
 //With Socket.io >= 1.0 (you will have the same setup for Socket.io <1)
 io.use(passportSocketIo.authorize({
-  cookieParser: cookieParser,
-  key:         'express.sid',       //make sure is the same as in your session settings in app.js
-  secret:      'keyboard cat',    //make sure is the same as in your session settings in app.js
-  store:       sessionStore,        //you need to use the same sessionStore you defined in the app.use(session({... in app.js
-  success:     onAuthorizeSuccess,  // *optional* callback on success
-  fail:        onAuthorizeFail,     // *optional* callback on fail/error
+  cookieParser: require('cookie-parser'), //optional your cookie-parser middleware function. Defaults to require('cookie-parser')
+  key:          'express.sid',       //make sure is the same as in your session settings in app.js
+  secret:       'keyboard cat',      //make sure is the same as in your session settings in app.js
+  store:        sessionStore,        //you need to use the same sessionStore you defined in the app.use(session({... in app.js
+  success:      onAuthorizeSuccess,  // *optional* callback on success
+  fail:         onAuthorizeFail,     // *optional* callback on fail/error
 }));
 
 ```
 
-### `cookieParser` [function] **required**:
-You have to provide your cookieParser from express: `express.cookieParser`
+### `cookieParser` [function] **optional**:
+Optional cookieParser from express. Express 3 is `express.cookieParser` in Express 4 `require('cookie-parser')`.
+
+Defaults to `require('cookie-parser')`.
 
 ### `key` [string] **optional**:
 Defaults to `'connect.sid'`. But you're always better of to be sure and set your own key. Don't forget to also change it in your `express.session()`:
