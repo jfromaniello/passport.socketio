@@ -17,10 +17,9 @@ npm install passport.socketio
 ```javascript
 
 // initialize our modules
-var io               = require("socket.io")(server),
+var io               = require('socket.io')(server),
     sessionStore     = require('awesomeSessionStore'), // find a working session store (have a look at the readme)
-    passportSocketIo = require("passport.socketio");
-
+    passportSocketIo = require('passport.socketio');
 // With Socket.io < 1.0
 io.set('authorization', passportSocketIo.authorize({
   cookieParser: express.cookieParser,
