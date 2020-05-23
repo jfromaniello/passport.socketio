@@ -192,6 +192,20 @@ function onAuthorizeFail(data, message, error, accept){
 
 You can use the `message` parameter for debugging/logging/etc uses.
 
+
+The accept callback sends an `error` event to the client:
+
+```javascript
+app.socket.on('error', function(err) {
+    
+    if (err === 'No session found') {
+        console.log('socket user authentication failed')
+        // prompt a login form
+    }
+	
+})
+```
+
 ## `socket.handshake.user` (prior to v1)
 This property was removed in v1. See `socket.request.user`
 
