@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/jfromaniello/passport.socketio.svg)](https://travis-ci.org/jfromaniello/passport.socketio)
+This module is currently deprecated and unmaintained. Please check [#148](https://github.com/jfromaniello/passport.socketio/issues/148#issue-865236471) which explain how to do this with modern versions of socket.io and using passport directly.
+
 
 # passport.socketio
 
