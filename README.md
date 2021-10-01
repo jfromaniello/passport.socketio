@@ -213,6 +213,16 @@ passportSocketIo.filterSocketsByUser(io, function(user){
   socket.emit('messsage', 'hello, woman!');
 });
 ```
+### `passportSocketIo.filterSocketsByUserInNamespace`
+This function gives you the ability to filter all connected sockets in a certain namespace via a user property. Needs two parameters `function(nsp, function(user))`. Example:
+```javascript
+var nsp = io.of('/game')
+passportSocketIo.filterSocketsByUserInNamespace(nsp, function(user){
+  return user.gender === 'female';
+}).forEach(function(socket){
+  socket.emit('messsage', 'hello, woman!');
+});
+```
 
 ## CORS-Workaround:
 If you happen to have to work with Cross-Origin-Requests (marked by socket.io v0.9 as `handshake.xdomain` and by socket.io v1.0 as `request.xdomain`) then here's a workaround:
