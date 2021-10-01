@@ -34,7 +34,7 @@ io.set('authorization', passportSocketIo.authorize({
 
 //With Socket.io >= 1.0
 io.use(passportSocketIo.authorize({
-  cookieParser: cookieParser,       // the same middleware you registrer in express
+  cookieParser: cookieParser,       // the same middleware you register in express
   key:          'express.sid',       // the name of the cookie where express/connect stores its session_id
   secret:       'session_secret',    // the session_secret to parse the cookie
   store:        sessionStore,        // we NEED to use a sessionstore. no memorystore please
